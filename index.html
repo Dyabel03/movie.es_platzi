@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Movie.es</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            display: grid;
+            grid-template: 58px 1fr / 100px 1fr;
+            height: 100vh;
+            grid-template-areas: "header header"
+                                 "left content"
+        }
+
+        .header{
+            grid-area: header;
+            box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+            position: fixed;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            background: white;
+        }
+
+        .left{
+            grid-area: left;
+            background: linear-gradient(to top, #cb356b, #bd3f32);
+            display: flex;
+            flex-flow: column;
+            justify-content: space-between;
+        }
+
+        .content{
+            grid-area: content;
+            margin: 0 20px;
+        }
+
+        .content-header {
+            display: grid;
+            grid-template-columns: 106px 1fr 280px;
+        }
+
+        .content-header .logo{
+            max-width: 87px;
+        }
+
+        .content-header input {
+            align-self: center;
+            padding: 10px;
+            border: 1px solid lightgray;
+            border-radius: 4px;
+        }
+
+        .badge-user {
+            align-self: center;
+            justify-self: end;
+            margin-right: 18px;
+            cursor: pointer;
+        }
+
+        .badge-user .name {
+            line-height: 35px;
+            padding-right: 12px;
+            font-weight: 700;
+        }
+
+        .badge-user img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            vertical-align: bottom;
+        }
+
+        .left .top-sections .subitem, .bottom-sections .subitem {
+            text-align: center;
+            color: white;
+            margin-top: 32px;
+        }
+
+        .top-sections .subitem p{
+            margin: 0;
+        }
+
+        .bottom-sections .subitem p {
+            margin: 0;
+            margin-bottom: 24px;
+        }
+
+        .content-movies {
+            display: grid;
+            grid-template: 50px 1fr 50px 1fr 50px 1fr / repeat(3, minmax(306px, 1fr));
+            grid-template-areas: "title1 title1 title1"
+                                 "movie1 movie1 movie1"
+                                 "title2 title2 title2"
+                                 "movie2 movie2 movie2"
+                                 "title3 title3 title3"
+                                 "movie3 movie3 movie3";
+            grid-gap: 25px;
+            grid-gap: 25px;
+            justify-content: space-evenly;
+            margin-bottom: 60px;
+        }
+
+        .content-movies .title1 {
+            grid-area: title1;
+            align-self: end;
+            font-size: 20px;
+        }
+
+        .content-movies .title2 {
+            grid-area: title2;
+            align-self: end;
+            font-size: 20px;
+        }
+
+        .content-movies .title3 {
+            grid-area: title3;
+            align-self: end;
+            font-size: 20px;
+        }
+
+        .content-movies .card-movie {
+            background-image: url(https://cdn.pixabay.com/photo/2018/03/07/17/15/balloon-3206530_960_720.jpg);
+            background-size: cover;
+            height: 200px;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        }
+
+        .content-movies .card-movie .movie-overlay {
+            position: absolute;
+            top: 74px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(221, 75, 57, .6);
+            color: white;
+            padding-left: 16px;
+        }
+
+        .content-movies .card-movie .movie-overlay h4 {
+            margin: 1em 0;
+            font-size: 18px;
+        }
+
+        .content-movies .card-movie .movie-overlay p {
+            font-size: 14px;
+        }
+
+        @media screen and (max-width:1125px) {
+            .content-movies {
+                grid-template: 50px 1fr 1fr 50px 1fr 1fr 50px 1fr 1fr / repeat(2, minmax(306px, 1fr));
+                grid-template-areas: "title1 title1"
+                                     "movie1 movie1"
+                                     "movie1 movie1"
+                                     "title2 title2"
+                                     "movie2 movie2"
+                                     "movie2 movie2"
+                                     "title3 title3"
+                                     "movie3 movie3"
+                                     "movie3 movie3";
+                grid-row-gap: 12px;
+                grid-column-gap: 8px;
+            }
+
+            .movie1:nth-of-type(4) {
+                grid-column: 1 / 3;
+            }
+
+            .movie2:nth-of-type(8) {
+                grid-column: 1 / 3;
+            }
+
+            .movie3:nth-of-type(12) {
+                grid-column: 1 / 3;
+            }
+
+        }
+
+        @media screen and (max-width:770px) {
+            .content-movies {
+                grid-template: 50px 1fr 1fr 1fr 50px 1fr 1fr 1fr 50px 1fr 1fr 1fr / repeat(1, minmax(258px, 1fr));
+                grid-template-areas: "title1"
+                                     "movie1"
+                                     "movie1"
+                                     "movie1"
+                                     "title2"
+                                     "movie2"
+                                     "movie2"
+                                     "movie2"
+                                     "title3"
+                                     "movie3"
+                                     "movie3"
+                                     "movie3";
+                grid-row-gap: 12px;
+            }
+
+            .movie1:nth-of-type(4) {
+                grid-column: 1 / 1;
+            }
+
+            .movie2:nth-of-type(8) {
+                grid-column: 1 / 1;
+            }
+
+            .movie3:nth-of-type(12) {
+                grid-column: 1 / 1;
+            }
+        }
+
+        @media screen and (max-width:685px) {
+            .content-header {
+                grid-template-columns: 70px 1fr 69px;
+            }
+
+            .badge-user .name,
+            .badge-user svg {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width:450px) {
+            .container {
+                grid-template: 58px 1fr / 50px 1fr;
+
+            }
+
+            .top-sections .subitem svg,
+            .bottom-sections .subitem svg {
+                width: 24px !important;
+                height: 24px !important;
+            }
+
+            .top-sections .subitem p,
+            .bottom-sections .subitem p{
+                display: none;
+            }
+
+            .bottom-sections {
+                margin-bottom: 20px;
+            }
+
+            .content {
+                margin: 0 4px;
+            }
+         }
+    </style>
+</head>
+<body>
+    <section class="container">
+        <header class="item header">
+         <div class="content-header">
+             <img class="logo" src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/687064/589/392/m1/fpnw/wm0/b-letter-logo-icon-mosaic-pattern-template-.jpg?1443616775&s=b1aa098e2c7a936eed15f1a554481fe4" alt="">
+             <input type="text" placeholder="Búsca tu peli, actur o director favorito">
+             <div class="badge-user">
+                 <span class="name">
+                    Andrés Felipe Chaparro
+                 </span>
+                 <img src="https://i.kinja-img.com/gawker-media/image/upload/s--fzOfmUoo--/c_scale,fl_progressive,q_80,w_800/sy2nhb9wellljlm40tm5.png" alt="">
+                 <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                    <path fill="#000000" d="M7,10L12,15L17,10H7Z" />
+                </svg>
+             </div>
+         </div>
+        </header>
+        <aside class="item left">
+            <div class="top-sections">
+                <div class="subitem home">
+                    <svg style="width:36px;height:36px" viewBox="0 0 24 24">
+                        <path fill="#FFFFFF" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
+                    </svg>
+                    <p>Home</p>
+                </div>
+                <div class="subitem trending">
+                    <svg style="width:36px;height:36px" viewBox="0 0 24 24">
+                        <path fill="#FFFFFF" d="M11.71,19C9.93,19 8.5,17.59 8.5,15.86C8.5,14.24 9.53,13.1 11.3,12.74C13.07,12.38 14.9,11.53 15.92,10.16C16.31,11.45 16.5,12.81 16.5,14.2C16.5,16.84 14.36,19 11.71,19M13.5,0.67C13.5,0.67 14.24,3.32 14.24,5.47C14.24,7.53 12.89,9.2 10.83,9.2C8.76,9.2 7.2,7.53 7.2,5.47L7.23,5.1C5.21,7.5 4,10.61 4,14A8,8 0 0,0 12,22A8,8 0 0,0 20,14C20,8.6 17.41,3.8 13.5,0.67Z" />
+                    </svg>
+                    <p>Trending</p>
+                </div>
+                <div class="subitem likes">
+                    <svg style="width:36px;height:36px" viewBox="0 0 24 24">
+                        <path fill="#FFFFFF" d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
+                    </svg>
+                    <p>Más Likes</p>
+                </div>
+            </div>
+            <div class="bottom-sections">
+                <div class="subitem settings">
+                    <svg style="width:36px;height:36px" viewBox="0 0 24 24">
+                        <path fill="#FFFFFF" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" />
+                    </svg>
+                    <p>Ajustes</p>
+                </div>
+            </div>
+        </aside>
+        <section class="item content">
+            <div class="content-movies">
+                <div class="title1">
+                   <strong>Ahora en Cine</strong>
+                </div>
+                <div class="card-movie movie1">
+                    <div class="movie-overlay">
+                        <h4>The secret Life of Pets1</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo magni error fugit suscipit, amet soluta accusantium enim molestias ea?</p>
+                    </div>
+                </div>
+                <div class="card-movie movie1">
+                    <div class="movie-overlay">
+                        <h4>The secret Life of Pets2</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo magni error fugit suscipit, amet soluta accusantium enim molestias ea?</p>
+                    </div>
+                </div>
+                <div class="card-movie movie1">
+                    <div class="movie-overlay">
+                        <h4>The secret Life of Pets3</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo magni error fugit suscipit, amet soluta accusantium enim molestias ea?</p>
+                    </div>
+                </div>
+                <div class="title2">
+                    <strong>Aclamadas por la critica</strong>
+                </div>
+                <div class="card-movie movie2">
+                    <div class="movie-overlay">
+                        <h4>The secret Life of Pets4</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo magni error fugit suscipit, amet soluta accusantium enim molestias ea?</p>
+                    </div>
+                </div>
+                <div class="card-movie movie2">
+                    <div class="movie-overlay">
+                        <h4>The secret Life of Pets5</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo magni error fugit suscipit, amet soluta accusantium enim molestias ea?</p>
+                    </div>
+                </div>
+                <div class="card-movie movie2">
+                    <div class="movie-overlay">
+                        <h4>The secret Life of Pets6</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo magni error fugit suscipit, amet soluta accusantium enim molestias ea?</p>
+                    </div>
+                </div>
+                <div class="title3">
+                    <strong>No te las puedes perder</strong>
+                </div>
+                <div class="card-movie movie3">
+                    <div class="movie-overlay">
+                        <h4>The secret Life of Pets7</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo magni error fugit suscipit, amet soluta accusantium enim molestias ea?</p>
+                    </div>
+                </div>
+                <div class="card-movie movie3">
+                    <div class="movie-overlay">
+                        <h4>The secret Life of Pets8</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo magni error fugit suscipit, amet soluta accusantium enim molestias ea?</p>
+                    </div>
+                </div>
+                <div class="card-movie movie3">
+                    <div class="movie-overlay">
+                        <h4>The secret Life of Pets9</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo magni error fugit suscipit, amet soluta accusantium enim molestias ea?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+</body>
+</html>
